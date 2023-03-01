@@ -10,7 +10,8 @@ import jakarta.persistence.Persistence;
 
 public class Main {
     public static void main(String[] args) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("maria-db");
+
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("oracle-fiap");
         EntityManager manager = factory.createEntityManager();
         Servico servico = ServicoView.formAbertura();
         TipoServico tipo = new TipoServico();
