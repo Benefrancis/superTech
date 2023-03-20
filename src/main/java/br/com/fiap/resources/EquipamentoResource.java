@@ -1,13 +1,15 @@
 package br.com.fiap.resources;
 
 import br.com.fiap.domain.equipamento.model.Equipamento;
+import br.com.fiap.domain.equipamento.model.TipoEquipamento;
 import br.com.fiap.domain.equipamento.repository.EquipamentoRepository;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
+import br.com.fiap.domain.equipamento.repository.TipoEquipamentoRepository;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriBuilder;
+
+import java.net.URI;
 
 @Path("/equipamento")
 public class EquipamentoResource {
@@ -33,4 +35,19 @@ public class EquipamentoResource {
 
         return res.build();
     }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response save(Equipamento e) {
+
+        var equipamento = EquipamentoRepository.save(e);
+
+        final URI equipamentoURI = UriBuilder
+                .fromResource(EquipamentoResource.class)
+                .path("/{id}")
+                .build(equipamento.getId());
+
+        return Response.created(equipamentoURI).entity(equipamento).build();
+    }
+
 }

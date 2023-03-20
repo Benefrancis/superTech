@@ -1,6 +1,8 @@
 package br.com.fiap.domain.equipamento.model;
 
+import br.com.fiap.domain.cliente.model.Cliente;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
@@ -31,13 +33,25 @@ public class Equipamento {
     )
     private TipoEquipamento tipo;
 
-    @Column(name = "nm_equipamento")
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "id_cliente",
+            referencedColumnName = "id_cliente",
+            foreignKey = @ForeignKey(name = "FK_EQUIPAMENTO_CLIENTE", value = ConstraintMode.CONSTRAINT)
+    )
+    private Cliente cliente;
+
+
+    @NotNull(message = "O nome do equipamento não pode ser null")
+    @Column(name = "nm_equipamento", nullable = false)
     private String nome;
 
+    @NotNull(message = "O numero de série do equipamento não pode ser null")
     @Column(name = "nmr_serie_equipamento")
     private String numeroDeSerie;
 
-    public Equipamento() {}
+    public Equipamento() {
+    }
 
     public Equipamento(Long id, TipoEquipamento tipo, String nome, String numeroDeSerie) {
         this.id = id;
