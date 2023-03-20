@@ -1,44 +1,36 @@
-package br.com.fiap.domain.equipamento.model;
+package br.com.fiap.domain.documento.model;
 
 import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
-@Table(
-        name = "tb_tp_equipamento",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "uk_nome_tp_equipamento",
-                        columnNames = "nm_tp_equipamento"
-                )
-        }
-)
-public class TipoEquipamento {
+@Table(name = "tb_documento")
+public class TipoDocumento {
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "seq_tp_equipamento"
+            generator = "seq_tp_documento"
     )
     @SequenceGenerator(
-            name = "seq_tp_equipamento",
-            sequenceName = "seq_tb_equipamento",
+            name = "seq_tp_documento",
+            sequenceName = "seq_tp_documento",
             allocationSize = 1
     )
-    @Column(name = "id_tp_equipamento")
+    @Column(name = "id_tp_documento")
     private Long id;
 
-    @Column(name = "nm_tp_equipamento")
+    @Column(name = "nm_tp_documento")
     private String nome;
 
-    public TipoEquipamento() {}
+    public TipoDocumento() {}
 
-    public TipoEquipamento(Long id, String nome) {
+    public TipoDocumento(Long id, String nome) {
         this.id = id;
         this.nome = nome;
     }
 
-    public TipoEquipamento(String nome) {
+    public TipoDocumento(String nome) {
         this.nome = nome;
     }
 
@@ -46,7 +38,7 @@ public class TipoEquipamento {
         return id;
     }
 
-    public TipoEquipamento setId(Long id) {
+    public TipoDocumento setId(Long id) {
         this.id = id;
 
         return this;
@@ -56,7 +48,7 @@ public class TipoEquipamento {
         return nome;
     }
 
-    public TipoEquipamento setNome(String nome) {
+    public TipoDocumento setNome(String nome) {
         this.nome = nome;
 
         return this;
@@ -66,7 +58,7 @@ public class TipoEquipamento {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TipoEquipamento that = (TipoEquipamento) o;
+        TipoDocumento that = (TipoDocumento) o;
 
         return Objects.equals(id, that.id) && Objects.equals(nome, that.nome);
     }
@@ -78,6 +70,11 @@ public class TipoEquipamento {
 
     @Override
     public String toString() {
-        return nome;
+        final StringBuilder sb = new StringBuilder("TipoDocumento {");
+        sb.append("id = ").append(id);
+        sb.append(", nome = '").append(nome).append('\'');
+        sb.append('}');
+
+        return sb.toString();
     }
 }

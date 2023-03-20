@@ -6,8 +6,15 @@ import jakarta.persistence.*;
 @Table(name = "tb_tp_servico")
 public class TipoServico {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tp_servico")
-    @SequenceGenerator(name = "seq_tp_servico", allocationSize = 1)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "seq_tp_servico"
+    )
+    @SequenceGenerator(
+            name = "seq_tp_servico",
+            sequenceName = "seq_tp_servico",
+            allocationSize = 1
+    )
     @Column(name = "id_tp_servico")
     private Long id;
 

@@ -7,40 +7,47 @@ import java.util.Objects;
 @Entity
 @Table(name = "tb_equipamento")
 public class Equipamento {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_EQUIPAMENTO")
-    @SequenceGenerator(name = "SQ_EQUIPAMENTO",
-    sequenceName = "SQ_EQUIPAMENTO",
-    allocationSize = 20,
-    initialValue = 1
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "seq_equipamento"
+    )
+    @SequenceGenerator(
+            name = "seq_equipamento",
+            sequenceName = "seq_equipamento",
+            allocationSize = 1
     )
     @Column(name = "id_equipamento")
     private Long id;
 
-    @Column(name = "NM_EQUIPAMENTO")
-    private String nome;
-
-    @Column(name = "NR_SERIE_EQUIPAMENTO")
-    private String numeroDeSerie;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "id_tp_equipamento",
-
-    referencedColumnName = "id_tp_equipamento",
-            foreignKey = @ForeignKey(name = "fk_tb_tp_equipamento",
-            value = ConstraintMode.CONSTRAINT
-            )
+    @ManyToOne(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.REFRESH
+    )
+    @JoinColumn(
+            name = "id_tp_equipamento",
+            referencedColumnName = "id_tp_equipamento",
+            foreignKey = @ForeignKey(name = "fk_tb_tp_equipamento", value = ConstraintMode.CONSTRAINT)
     )
     private TipoEquipamento tipo;
 
+    @Column(name = "nm_equipamento")
+    private String nome;
 
+    @Column(name = "nmr_serie_equipamento")
+    private String numeroDeSerie;
 
-    public Equipamento() {
+    public Equipamento() {}
+
+    public Equipamento(Long id, TipoEquipamento tipo, String nome, String numeroDeSerie) {
+        this.id = id;
+        this.tipo = tipo;
+        this.nome = nome;
+        this.numeroDeSerie = numeroDeSerie;
     }
 
-    public Equipamento(Long id, String nome, String numeroDeSerie) {
-        this.id = id;
+    public Equipamento(TipoEquipamento tipo, String nome, String numeroDeSerie) {
+        this.tipo = tipo;
         this.nome = nome;
         this.numeroDeSerie = numeroDeSerie;
     }
@@ -51,6 +58,17 @@ public class Equipamento {
 
     public Equipamento setId(Long id) {
         this.id = id;
+
+        return this;
+    }
+
+    public TipoEquipamento getTipo() {
+        return tipo;
+    }
+
+    public Equipamento setTipo(TipoEquipamento tipo) {
+        this.tipo = tipo;
+
         return this;
     }
 
@@ -60,6 +78,7 @@ public class Equipamento {
 
     public Equipamento setNome(String nome) {
         this.nome = nome;
+
         return this;
     }
 
@@ -69,33 +88,33 @@ public class Equipamento {
 
     public Equipamento setNumeroDeSerie(String numeroDeSerie) {
         this.numeroDeSerie = numeroDeSerie;
+
         return this;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Equipamento)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Equipamento that = (Equipamento) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getNome(), that.getNome()) && Objects.equals(getNumeroDeSerie(), that.getNumeroDeSerie());
+
+        return Objects.equals(id, that.id) && Objects.equals(tipo, that.tipo) && Objects.equals(nome, that.nome) && Objects.equals(numeroDeSerie, that.numeroDeSerie);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNome(), getNumeroDeSerie());
+        return Objects.hash(id, tipo, nome, numeroDeSerie);
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Equipamento{");
-        sb.append("id=").append(id);
-        sb.append(", nome='").append(nome).append('\'');
-        sb.append(", numeroDeSerie='").append(numeroDeSerie).append('\'');
+        final StringBuilder sb = new StringBuilder("Equipamento {");
+        sb.append("id = ").append(id);
+        sb.append(", tipo = ").append(tipo);
+        sb.append(", nome = '").append(nome).append('\'');
+        sb.append(", numeroDeSerie = '").append(numeroDeSerie).append('\'');
         sb.append('}');
+
         return sb.toString();
     }
 }
-
-
-
-

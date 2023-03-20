@@ -9,15 +9,27 @@ import java.util.Objects;
 @Table(name = "tb_servico")
 public class Servico {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_servico")
-    @SequenceGenerator(name = "seq_servico", sequenceName = "seq_servico", allocationSize = 1)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "seq_servico"
+    )
+    @SequenceGenerator(
+            name = "seq_servico",
+            sequenceName = "seq_servico",
+            allocationSize = 1
+    )
     @Column(name = "id_servico")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "id_tp_servico",
+    @ManyToOne(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.REFRESH
+    )
+    @JoinColumn(
+            name = "id_tp_servico",
             referencedColumnName = "id_tp_servico",
-            foreignKey = @ForeignKey(name = "fk_tb_tp_servico", value = ConstraintMode.CONSTRAINT))
+            foreignKey = @ForeignKey(name = "fk_tb_tp_servico", value = ConstraintMode.CONSTRAINT)
+    )
     private TipoServico tipo;
 
     @Column(name = "nm_servico")
